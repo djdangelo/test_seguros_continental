@@ -4,7 +4,7 @@
     {
         public static double GetDownPayment(double rate, double total)
         {
-            return rate * total;
+            return (rate / 100) * total;
         }
     }
 }
