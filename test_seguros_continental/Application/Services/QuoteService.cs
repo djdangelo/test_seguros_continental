@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using test_seguros_continental.Application.Interfaces;
 using test_seguros_continental.Application.Interfaces.Repository;
+using test_seguros_continental.Application.Services.Repository;
 using test_seguros_continental.Common.Email;
 using test_seguros_continental.Domain.Entities.Quote;
 using test_seguros_continental.WebApi.DTOs.Quote;
@@ -10,6 +11,7 @@ namespace test_seguros_continental.Application.Services
     public class QuoteService : IQuoteService
     {
         IRepository<QuoteEntity> _repository;
+        QuoteRepositoryService _quoteRepositoryService;
 
         IRateRangeService _rangeService;
         IClientService _clientService;
@@ -18,13 +20,15 @@ namespace test_seguros_continental.Application.Services
         public QuoteService(
                 IRepository<QuoteEntity> repository,
                 IMapper mapper,
-                IRateRangeService rateRangeService, IClientService clientService
+                IRateRangeService rateRangeService, IClientService clientService,
+                QuoteRepositoryService quoteRepositoryService
             )
         {
             _repository = repository;
             _mapper = mapper;
             _rangeService = rateRangeService;
             _clientService = clientService;
+            _quoteRepositoryService = quoteRepositoryService;
         }
 
         public async Task<QuoteDTO> Create(QuoteDTO quoteDTO)
@@ -77,7 +81,7 @@ namespace test_seguros_continental.Application.Services
 
         public async Task<IEnumerable<QuoteDTO>> GetAllPagination(int pageNumber, int pageSize)
         {
-            var quotes = await _repository.GetAllPagination(pageNumber, pageSize);
+            var quotes = await _quoteRepositoryService.GetAllInclude(pageNumber, pageSize);
             return quotes.Where(client => client.Status == true).
                 Select(c => _mapper.Map<QuoteDTO>(c)).ToList();
         }

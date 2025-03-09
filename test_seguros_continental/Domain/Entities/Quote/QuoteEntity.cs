@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using test_seguros_continental.Domain.Entities.Client;
 using test_seguros_continental.Domain.Entities.Currency;
+using test_seguros_continental.Domain.Entities.TypeInsurance;
 
 namespace test_seguros_continental.Domain.Entities.Quote
 {
@@ -14,6 +15,8 @@ namespace test_seguros_continental.Domain.Entities.Quote
         public int ClientId { get; set; }
         [Required]
         public int CurrencyId { get; set; }
+        [Required]
+        public int TypeInsuranceId { get; set; }
         [Required, StringLength(500)]
         public string DescriptionAsset { get; set; }
         [Required, MinLength(1)]
@@ -26,10 +29,11 @@ namespace test_seguros_continental.Domain.Entities.Quote
         public DateTime CreateAt { get; set; }
         [Required]
         public bool Status { get; set; }
-
         [ForeignKey(nameof(ClientId))]
         public virtual ClientEntity ClientEntity { get; set; }
         [ForeignKey(nameof(CurrencyId))]
         public virtual CurrencyEntity CurrencyEntity { get; set; }
+        [ForeignKey(nameof(TypeInsuranceId))]
+        public virtual TypeInsuranceEntity TypeInsuranceEntity { get; set; }
     }
 }

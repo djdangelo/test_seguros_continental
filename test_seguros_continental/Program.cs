@@ -22,6 +22,7 @@ builder.Services.AddScoped<ITypeClientService, TypeClientService>();
 builder.Services.AddScoped<ITypeInsuranceService, TypeInsuranceService>();
 builder.Services.AddScoped<IRateRangeService, RateRangeService>();
 builder.Services.AddScoped<ClientRepositoryService, ClientRepositoryService>();
+builder.Services.AddScoped<QuoteRepositoryService, QuoteRepositoryService>();
 
 
 builder.Services.AddScoped<IRepository<CurrencyEntity>, RepositoryService<CurrencyEntity>>();
