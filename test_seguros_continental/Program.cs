@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using test_seguros_continental.Application.AutoMappers;
 using test_seguros_continental.Application.Interfaces;
 using test_seguros_continental.Application.Interfaces.Repository;
@@ -21,6 +21,7 @@ builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ITypeClientService, TypeClientService>();
 builder.Services.AddScoped<ITypeInsuranceService, TypeInsuranceService>();
 builder.Services.AddScoped<IRateRangeService, RateRangeService>();
+builder.Services.AddScoped<ClientRepositoryService, ClientRepositoryService>();
 
 
 builder.Services.AddScoped<IRepository<CurrencyEntity>, RepositoryService<CurrencyEntity>>();
@@ -29,6 +30,17 @@ builder.Services.AddScoped<IRepository<ClientEntity>, RepositoryService<ClientEn
 builder.Services.AddScoped<IRepository<TypeClientEntity>, RepositoryService<TypeClientEntity>>();
 builder.Services.AddScoped<IRepository<TypeInsuranceEntity>, RepositoryService<TypeInsuranceEntity>>();
 builder.Services.AddScoped<IRepository<RateRangeEntity>, RepositoryService<RateRangeEntity>>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy.AllowAnyOrigin()  // ⚠️ Solo para pruebas
+                  .AllowAnyMethod()
+                  .AllowAnyHeader().SetIsOriginAllowedToAllowWildcardSubdomains(); ;
+        });
+});
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -52,7 +64,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

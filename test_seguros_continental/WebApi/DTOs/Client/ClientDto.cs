@@ -1,4 +1,6 @@
 ﻿
+using test_seguros_continental.WebApi.DTOs.TypeClient;
+
 namespace test_seguros_continental.WebApi.DTOs.Client
 {
     public class ClientDto
@@ -12,5 +14,6 @@ namespace test_seguros_continental.WebApi.DTOs.Client
         public DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
         public bool? Status { get; set; }
+        public TypeClientDto? TypeClientEntity { get; set; }
     }
 }

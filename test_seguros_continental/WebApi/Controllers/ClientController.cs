@@ -53,5 +53,12 @@ namespace test_seguros_continental.WebApi.Controllers
             var data = await _clientService.Delete(id);
             return data == null ? NotFound() : Ok(data);
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ClientDto>> GetById(int id)
+        {
+            var client = await _clientService.GetById(id);
+            return client == null ? NotFound() : Ok(client);
+        }
+
     }
 }

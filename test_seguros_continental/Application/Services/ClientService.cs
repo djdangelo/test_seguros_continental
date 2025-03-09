@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using test_seguros_continental.Application.Interfaces;
 using test_seguros_continental.Application.Interfaces.Repository;
+using test_seguros_continental.Application.Services.Repository;
 using test_seguros_continental.Domain.Entities.Client;
 using test_seguros_continental.WebApi.DTOs.Client;
 
@@ -9,14 +10,17 @@ namespace test_seguros_continental.Application.Services
     public class ClientService : IClientService
     {
         IRepository<ClientEntity> _repository;
+        ClientRepositoryService _clientRepositoryService;
         IMapper _mapper;
         public ClientService(
             IRepository<ClientEntity> repository,
+            ClientRepositoryService clientRepositoryService,
             IMapper mapper
             )
         {
             _mapper = mapper;
             _repository = repository;
+            _clientRepositoryService = clientRepositoryService; 
         }
         public async Task<ClientDto> Create(ClientDto clientDto)
         {
@@ -40,7 +44,7 @@ namespace test_seguros_continental.Application.Services
 
         public async Task<IEnumerable<ClientDto>> GetAllPagination(int pageNumber, int pageSize)
         {
-            var clients = await _repository.GetAllPagination(pageNumber, pageSize);
+            var clients = await _clientRepositoryService.GetAllInclude(pageNumber, pageSize);
             return clients.Where(client => client.Status == true).
                 Select(c => _mapper.Map<ClientDto>(c)).ToList();
         }
