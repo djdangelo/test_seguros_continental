@@ -19,7 +19,7 @@ namespace test_seguros_continental.Application.Services.Repository
         {
             if (pageNumber < 1) pageNumber = 1;
             if (pageSize < 1) pageSize = 10;
-            return await _dbSet.Include(a => a.CurrencyEntity).Include(b => b.ClientEntity).Include(c=>c.TypeInsuranceEntity).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+            return await _dbSet.Include(a => a.CurrencyEntity).Include(b => b.ClientEntity).Include(c=>c.TypeInsuranceEntity).Skip((pageNumber - 1) * pageSize).Take(pageSize).OrderByDescending(d => d.CreateAt).ToListAsync();
         }
     }
 }

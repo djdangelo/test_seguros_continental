@@ -8,7 +8,7 @@ namespace test_seguros_continental.Common.Email
         public void SendEmail(string toEmail, string subject, string body)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Tu Nombre", "tu-email@dominio.com"));
+            message.From.Add(new MailboxAddress("notificacion", "notificaciones.taxi22@gmail.com"));
             message.To.Add(new MailboxAddress("", toEmail));
             message.Subject = subject;
 
@@ -17,8 +17,8 @@ namespace test_seguros_continental.Common.Email
 
             using (var client = new SmtpClient())
             {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.Authenticate("tu-email@dominio.com", "tu-contraseña");
+                client.Connect("smtp.gmail.com", 465, true);
+                client.Authenticate("notificaciones.taxi22@gmail.com", "oeaarpkajyjvtzri");
 
                 client.Send(message);
                 client.Disconnect(true);

@@ -1,7 +1,6 @@
-﻿
-using test_seguros_continental.WebApi.DTOs.Client;
-using test_seguros_continental.WebApi.DTOs.Currency;
-using test_seguros_continental.WebApi.DTOs.TypeInsurance;
+﻿using test_seguros_continental.Domain.Entities.Client;
+using test_seguros_continental.Domain.Entities.Currency;
+using test_seguros_continental.Domain.Entities.TypeInsurance;
 
 namespace test_seguros_continental.WebApi.DTOs.Quote
 {
@@ -15,10 +14,10 @@ namespace test_seguros_continental.WebApi.DTOs.Quote
         public double TotalInsurance { get; set; }
         public double? DownPayment { get; set; }
         public double? Rate { get; set; }
-        public DateTime? CreateAt { get; set; }
+        public DateTime? CreateAt { get; set; } = DateTime.Now.ToUniversalTime();
         public bool Status { get; set; }
-        public CurrencyDto? currencyDto { get; set; }
-        public ClientDto? clientDto { get; set; }
-        public TypeInsuranceDto? TypeInsuranceDto { get; set; }
+        public CurrencyEntity? CurrencyEntity { get; set; }
+        public ClientEntity? ClientEntity { get; set; }
+        public TypeInsuranceEntity? TypeInsuranceEntity { get; set; }
     }
 }
